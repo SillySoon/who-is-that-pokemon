@@ -10,41 +10,38 @@ let auto = 1;
 let language = "en";
 let autoStart = true;
 
-let channel = "helpingspoon";
-let botuser = "";
-let token = "";
+// Pokedex entires: Min 1, Max 898 supported.
+let min = 1;
+let max = 151;
 
-// Points
+let channel = "helpingspoon"; // Add your channel here
+let botuser = ""; // Add your Bot Username here
+let token = ""; // Add your Bot Token here, from http://twitchapps.com/tmi/
+
+// Points for Streamelements (!addpoints [user] [amount]) - Set to 0 to disable
 let pointReward = 200;
-
 
 // Prequisite for Code
 let pokemon;
 let pokemonData;
 let pokemonNames = [];
+let isSolved = false;
+let winner;
 
 // Login ComfyJS
 if (botuser) {
-  // Login the Bot if botuser is set
   ComfyJS.Init(botuser, token, channel);
 } else if (token) {
-  // Login the User if token is set
   ComfyJS.Init(channel, token);
 } else {
   // Login as anonymous if no token or botuser is set
-  // Note: this will not allow you to use the Bot in chat
   ComfyJS.Init(channel);
 }
 
 function randomNumber(min, max) {
-  const r = Math.random() * (max - min) + min;
-  return Math.floor(r);
+  const num = Math.random() * (max - min) + min;
+  return Math.floor(num);
 }
-
-let isSolved = false;
-let min = 1;
-let max = 151;
-let winner;
 
 function startGame() {
   isSolved = false;
@@ -107,9 +104,10 @@ function buildPokeDex(x, b, pn) {
 
   if (token) {
     ComfyJS.Say(pokedexMessage);
-    ComfyJS.Say(`!addpoints ${b} ${pointReward}`);
+    if (pointReward !== 0) {
+      ComfyJS.Say(`!addpoints ${b} ${pointReward}`);
+    }
   }
-  console.log(pokedexMessage);
 }
 
 function pokeShow(data, index) {
@@ -138,23 +136,16 @@ function guess(message, user) {
   if (pokemonNames.some(pokemonName => message.includes(pokemonName))) {
     isSolved = true;
 
-    let audio2 = new Audio(`https://sillysoon.de/pokemon/sounds/${pokemon.id}.mp3`);
+    let audio = new Audio(`https://sillysoon.de/pokemon/sounds/${pokemon.id}.mp3`);
     
-    audio2.oncanplaythrough = function () {
-      audio2.play();
-      console.log("Sound played!");
+    audio.oncanplaythrough = function () {
+      audio.play();
     };
-
-    audio2.onerror = function () {
-      console.log("no sound");
-    };
-    console.log(pokemon.id);
 
     holder.id = "win";
 
     // Reset pokemonNames
     pokemonNames = [];
-
 
     fetchPokeDex(user, message);
     setTimeout(function () {
@@ -236,10 +227,6 @@ function winReset() {
 function stopGame() {
   location.reload();
 }
-
-
-
-
 
 function stopAuto() {
   auto = false;
