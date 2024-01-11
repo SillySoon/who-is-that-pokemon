@@ -48,19 +48,16 @@ function startGame() {
 
   // Get Random Pokemon
   pokemonIndex = randomNumber(min, max);
-  // console.log(`Log: pokemonIndex = ${pokemonIndex}`);
+  console.log(pokemonIndex);
 
   ball.style.visibility = "visible";
-
   ballVid.play();
 
   fetch("https://pokeapi.co/api/v2/pokemon/" + pokemonIndex)
     .then((response) => {
-      // console.log("API Response:", response);
       return response.json();
     })
     .then((data) => {
-      // console.log("API Data:", data);
       pokeShow(data, pokemonIndex);
     });
 }
@@ -69,9 +66,9 @@ function capitalize(string) {
   return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
 }
 
-function fetchPokeDex(b, pn) {
-  if (b) {
-    buildPokeDex(pokemonData, b, pn);
+function fetchPokeDex(user) {
+  if (user) {
+    buildPokeDex(pokemonData, user);
   } else {
     fetch("https://pokeapi.co/api/v2/pokemon-species/" + pokemon.id)
       .then((response) => response.json())
@@ -83,29 +80,29 @@ function buildData(tempPokemonData) {
   pokemonData = tempPokemonData;
 
   for (let index = 0; index < pokemonData.names.length; ++index) {
-    //  console.log(pokemonData.names[index].name);
     pokemonNames.push(pokemonData.names[index].name.toLowerCase());
-    console.log(`${pokemonData.names[index].name} : ${pokemonData.names[index].language.name}`);
   }
+
   pokemonNames.push(pokemon.name);
+  console.log(pokemonNames); // Debug Output for all possible names
 }
 
-function buildPokeDex(x, b, pn) {
-  x.flavor_text_entries.forEach((element) => {
+function buildPokeDex(pokemon, user) {
+  pokemon.flavor_text_entries.forEach((element) => {
     if (element.language.name === language) {
       flavor = element.flavor_text;
-      console.log("found");
     }
   });
 
-  pokedexMessage = `#${pokemon.id} ${pn} - ${flavor} Height: ${pokemon.height / 10} M Weight: ${pokemon.weight / 10} Kg Found By: ${b} More infos can be found here: https://www.pokemon.com/us/pokedex/${pn}`;
+  pokedexMessage = `#${pokemon.id} ${capitalize(pokemon.name)} - ${flavor} Height: ${pokemon.height / 10} M Weight: ${pokemon.weight / 10} Kg Found By: ${user} More infos can be found here: https://www.pokemon.com/us/pokedex/${pokemon.name}`;
+  console.log(pokedexMessage);
 
-  winner = b;
+  winner = user;
 
   if (token) {
     ComfyJS.Say(pokedexMessage);
     if (pointReward !== 0) {
-      ComfyJS.Say(`!addpoints ${b} ${pointReward}`);
+      ComfyJS.Say(`!addpoints ${user} ${pointReward}`);
     }
   }
 }
@@ -147,7 +144,7 @@ function guess(message, user) {
     // Reset pokemonNames
     pokemonNames = [];
 
-    fetchPokeDex(user, message);
+    fetchPokeDex(user);
     setTimeout(function () {
       winReset();
     }, 10000);
