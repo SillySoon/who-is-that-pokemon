@@ -142,7 +142,7 @@ function skip() {
 }
 
 function guess(message, user) {
-  if (pokemonNames.some(pokemonName => message.includes(pokemonName))) {
+  if (pokemonNames.some(pokemonName => message.includes(pokemonName)) && !isSolved) {
     isSolved = true;
 
     let audio = new Audio(`https://sillysoon.de/pokemon/sounds/${pokemon.id}.mp3`);
@@ -153,11 +153,12 @@ function guess(message, user) {
 
     holder.id = "win";
 
-    // Reset pokemonNames
-    pokemonNames = [];
+    
 
     fetchPokeDex(user);
     setTimeout(function () {
+      // Reset pokemonNames
+      pokemonNames = [];
       winReset();
     }, 10000);
   }
