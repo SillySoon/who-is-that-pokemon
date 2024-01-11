@@ -155,10 +155,12 @@ function guess(message, user) {
 ComfyJS.onCommand = (user, command, message, flags, extra) => {
   switch (command) {
     case "wtp":
-      if ((flags.broadcaster || flags.mod) && !isSolved) {
-        startGame();
-      } else {
-        skip();
+      if ((flags.broadcaster || flags.mod)) {
+        if (!isSolved) {
+          startGame();
+        } else {
+          skip();
+        }
       }
       break;
     case "wtp-reset":
