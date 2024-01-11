@@ -10,7 +10,7 @@ let auto = 1;
 let language = "en";
 let autoStart = true;
 
-let channel = "";
+let channel = "helpingspoon";
 let botuser = "";
 let token = "";
 
@@ -43,7 +43,7 @@ function randomNumber(min, max) {
 
 let isSolved = false;
 let min = 1;
-let max = 898;
+let max = 151;
 let winner;
 
 function startGame() {
@@ -134,11 +134,12 @@ function skip() {
   startGame();
 }
 
-function guess(x, n) {
-  if (pokemonNames.includes(x)) {
+function guess(message, user) {
+  if (pokemonNames.some(pokemonName => message.includes(pokemonName))) {
     isSolved = true;
 
-    var audio2 = new Audio(`https://sillysoon.de/pokemon/sounds/${pokemon.id}.mp3`);
+    let audio2 = new Audio(`https://sillysoon.de/pokemon/sounds/${pokemon.id}.mp3`);
+    
     audio2.oncanplaythrough = function () {
       audio2.play();
       console.log("Sound played!");
@@ -155,7 +156,7 @@ function guess(x, n) {
     pokemonNames = [];
 
 
-    fetchPokeDex(n, x);
+    fetchPokeDex(user, message);
     setTimeout(function () {
       winReset();
     }, 10000);
@@ -209,11 +210,12 @@ ComfyJS.onCommand = (user, command, message, flags, extra) => {
 };
 
 ComfyJS.onChat = (user, message, flags, self, extra) => {
-  console.log(user + " : " + message);
+  console.log(`${user}: ${message}`);
 
   if (!isSolved) {
-    console.log("not solved");
-    message = message.replace(/[?@]/g, "").split(" ")[0].toLowerCase();
+    // converting message to lowercase and removing special characters
+    message = message.replace(/[?@]/g, "").toLowerCase();
+
     guess(message, user);
   }
 };
