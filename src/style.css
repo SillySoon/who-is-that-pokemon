@@ -1,7 +1,7 @@
 @import url("https://fonts.cdnfonts.com/css/pokemon-solid");
 
 body {
-  background-color: #000000;
+  background-color: #090b1a;
 }
 
 #pokemon-container {
@@ -19,7 +19,7 @@ body {
 #holder {
   filter: saturate(0%) brightness(200) grayscale(100%);
   max-width: 400px;
-  max-height: 400px;  
+  max-height: 400px;
 }
 
 #win {

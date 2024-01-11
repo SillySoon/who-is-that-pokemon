@@ -211,7 +211,6 @@ ComfyJS.onChat = (user, message, flags, self, extra) => {
   if (!isSolved) {
     // converting message to lowercase and removing special characters
     message = message.replace(/[?@]/g, "").toLowerCase();
-
     guess(message, user);
   }
 };
