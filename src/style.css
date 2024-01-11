@@ -1,0 +1,75 @@
+@import url("https://fonts.cdnfonts.com/css/pokemon-solid");
+
+body {
+  background-color: #000000;
+}
+
+#holder {
+  filter: saturate(0%) brightness(200) grayscale(100%);
+  position: absolute;
+  top: 143px;
+  left: 35px;
+  width: 400px;
+  height: 400px;
+}
+#win {
+  position: absolute;
+  top: 143px;
+  left: 35px;
+  width: 400px;
+  height: 400px;
+}
+
+#holder img {
+  filter: drop-shadow(-5px 5px 3px lightgrey);
+  width: 400px;
+  height: 400px;
+}
+
+#win img {
+  filter: drop-shadow(-5px 5px 3px lightgrey);
+  position: absolute;
+  top: 143px;
+  left: 35px;
+  width: 400px;
+  height: 400px;
+}
+
+#ball {
+  visibility: hidden;
+}
+
+#ballVid {
+  position: absolute;
+  width: 700px;
+  top: 10px;
+  left: -120px;
+}
+
+#title {
+  font-family: "Pokemon Solid", sans-serif;
+  font-size: 400%;
+  color: #ffca04;
+  position: absolute;
+  left: 500px;
+  top: 260px;
+  visibility: hidden;
+  letter-spacing: 4px;
+  text-shadow: -1px -1px 0 #3e57a5, 0 -1px 0 #3e57a5, 7px -1px 0 #3e57a5,
+    7px 0 0 #3e57a5, 2px 2px 0 #3e57a5, 0 2px 0 #3e57a5, -1px 7px 0 #3e57a5,
+    -1px 0 0 #3e57a5;
+}
+
+#wellDone {
+  font-family: "Pokemon Solid", sans-serif;
+  font-size: 350%;
+  color: white;
+  position: absolute;
+  left: 500px;
+  top: 380px;
+  visibility: hidden;
+  letter-spacing: 4px;
+  text-shadow: -1px -1px 0 #3e57a5, 0 -1px 0 #3e57a5, 7px -1px 0 #3e57a5,
+    7px 0 0 #3e57a5, 2px 2px 0 #3e57a5, 0 2px 0 #3e57a5, -1px 7px 0 #3e57a5,
+    -1px 0 0 #3e57a5;
+}
