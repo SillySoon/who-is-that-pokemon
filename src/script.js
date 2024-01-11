@@ -6,8 +6,11 @@ let wellDone = document.getElementById("wellDone");
 let ballVid = document.getElementById("ballVid");
 
 // Settings
-let auto = 1;
+let autoRestart = 1;
 let autoStart = true;
+
+let autoGiveUp = true;
+let autoGiveUpTime = 300; // Seconds
 
 // Pokedex entires: Min 1, Max 898 supported.
 let min = 1;
@@ -64,7 +67,10 @@ function startGame() {
 
   // Set timer for 10 minutes
   clearTimeout(timer);
-  timer = setTimeout(giveUp, 5 * 60 * 1000);
+  
+  if (autoGiveUp) {
+    timer = setTimeout(giveUp, autoGiveUpTime * 1000);
+  }
 }
 
 function capitalize(string) {
@@ -221,7 +227,7 @@ function winReset() {
   // Reset Image
   holder.id = "holder";
   holder.src = "holder.png";
-  if (auto) {
+  if (autoRestart) {
     setTimeout(function () {
       startGame();
     }, 10000);
@@ -233,12 +239,12 @@ function stopGame() {
 }
 
 function stopAuto() {
-  auto = false;
+  autoRestart = false;
   winReset();
 }
 
 function startAuto() {
-  auto = true;
+  autoRestart = true;
   startGame();
 }
 

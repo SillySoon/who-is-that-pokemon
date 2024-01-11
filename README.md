@@ -19,8 +19,11 @@ You can find the configuration settings in the `script.js` file.
 
 ```js
 // Settings
-let auto = 1;
+let autoRestart = 1;
 let autoStart = true;
+
+let autoGiveUp = true;
+let autoGiveUpTime = 300; // Seconds
 
 // Pokédex entries: Min 1, Max 898 supported.
 let min = 1;
