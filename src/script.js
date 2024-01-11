@@ -7,7 +7,6 @@ let ballVid = document.getElementById("ballVid");
 
 // Settings
 let auto = 1;
-let language = "en";
 let autoStart = true;
 
 // Pokedex entires: Min 1, Max 898 supported.
@@ -64,6 +63,7 @@ function startGame() {
     });
 
   // Set timer for 10 minutes
+  clearTimeout(timer);
   timer = setTimeout(giveUp, 5 * 60 * 1000);
 }
 
@@ -94,7 +94,7 @@ function buildData(tempPokemonData) {
 
 function buildPokeDex(pokemon, user) {
   pokemon.flavor_text_entries.forEach((element) => {
-    if (element.language.name === language) {
+    if (element.language.name === 'en') {
       flavor = element.flavor_text;
     }
   });
