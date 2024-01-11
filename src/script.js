@@ -43,6 +43,8 @@ function randomNumber(min, max) {
   return Math.floor(num);
 }
 
+let timer;
+
 function startGame() {
   isSolved = false;
 
@@ -60,6 +62,9 @@ function startGame() {
     .then((data) => {
       pokeShow(data, pokemonIndex);
     });
+
+  // Set timer for 10 minutes
+  timer = setTimeout(giveUp, 5 * 60 * 1000);
 }
 
 function capitalize(string) {
@@ -122,6 +127,7 @@ function showShadow(s) {
 
 function giveUp() {
   guess(pokemon.name);
+  ComfyJS.Say(`The Pokemon was ${capitalize(pokemon.name)}!`);
 }
 
 function skip() {
@@ -155,7 +161,7 @@ function guess(message, user) {
 ComfyJS.onCommand = (user, command, message, flags, extra) => {
   switch (command) {
     case "wtp":
-      if ((flags.broadcaster || flags.mod)) {
+      if (flags.broadcaster || flags.mod) {
         if (!isSolved) {
           startGame();
         } else {
