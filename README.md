@@ -25,14 +25,19 @@ let autoStart = true;
 let autoGiveUp = true;
 let autoGiveUpTime = 300; // Seconds
 
-// Pokédex entries: Min 1, Max 898 supported.
+let randomSpawnTime = true;
+let randomSpawnTimeMin = 30; // Seconds
+let randomSpawnTimeMax = 150; // Seconds
+
+// Pokedex entires: Min 1, Max 898 supported.
 let min = 1;
 let max = 151;
 
-let channel = "helpingspoon"; // Add your channel here.
-let botuser = ""; // Add your Bot Username here.
+let channel = "helpingspoon"; // Add your channel here
+let botuser = ""; // Add your Bot Username here
 let token = ""; // Add your Bot Token here, from http://twitchapps.com/tmi/
 
-// Points for StreamElements (!addpoints [user] [amount]) - Set to 0 to disable.
+// Points for Streamelements (!addpoints [user] [amount]) - Set to 0 to disable
 let pointReward = 200;
+let pointAddCommand = "!addpoints";
 ```
