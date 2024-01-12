@@ -22,6 +22,7 @@ let token = ""; // Add your Bot Token here, from http://twitchapps.com/tmi/
 
 // Points for Streamelements (!addpoints [user] [amount]) - Set to 0 to disable
 let pointReward = 200;
+let pointAddCommand = "!addpoints";
 
 // Prequisite for Code
 let pokemon;
@@ -113,7 +114,7 @@ function buildPokeDex(pokemon, user) {
   if (token) {
     ComfyJS.Say(pokedexMessage);
     if (pointReward !== 0) {
-      ComfyJS.Say(`!addpoints ${user} ${pointReward}`);
+      ComfyJS.Say(`${pointAddCommand} ${user} ${pointReward}`);
     }
   }
 }
