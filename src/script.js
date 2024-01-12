@@ -99,8 +99,8 @@ function buildData(tempPokemonData) {
   console.log(pokemonNames); // Debug Output for all possible names
 }
 
-function buildPokeDex(pokemon, user) {
-  pokemon.flavor_text_entries.forEach((element) => {
+function buildPokeDex(pokemonData, user) {
+  pokemonData.flavor_text_entries.forEach((element) => {
     if (element.language.name === 'en') {
       flavor = element.flavor_text;
     }
@@ -252,7 +252,6 @@ function startAuto() {
 
 function stopVid() {
   ball.style.visibility = "hidden";
-  console.log("HIDE");
 }
 
 // Prefire Game when loaded
