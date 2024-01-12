@@ -20,7 +20,7 @@ let randomSpawnTimeMax = 150; // Seconds
 let min = 1;
 let max = 151;
 
-let channel = "helpingspoon"; // Add your channel here
+let channel = ""; // Add your channel here
 let botuser = ""; // Add your Bot Username here
 let token = ""; // Add your Bot Token here, from http://twitchapps.com/tmi/
 
@@ -34,6 +34,42 @@ let pokemonData;
 let pokemonNames = [];
 let isSolved = false;
 let winner;
+
+// Get Query Params
+function getQueryParams() {
+  var params = {};
+  var queryString = window.location.search.substring(1);
+  var vars = queryString.split('&');
+
+  for (var i = 0; i < vars.length; i++) {
+      var pair = vars[i].split('=');
+      params[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
+  }
+
+  return params;
+}
+
+// Use Querz Params
+let queryParams = getQueryParams();
+
+min = queryParams['min'] || min;
+max = queryParams['max'] || max;
+
+channel = queryParams['channel'] || channel;
+botuser = queryParams['botuser'] || botuser;
+token = queryParams['token'] || token;
+
+autoRestart = queryParams['autoRestart'] || autoRestart;
+autoStart = queryParams['autoStart'] || autoStart;
+
+autoGiveUp = queryParams['autoGiveUp'] || autoGiveUp;
+autoGiveUpTime = queryParams['autoGiveUpTime'] || autoGiveUpTime;
+
+randomSpawnTime = queryParams['randomSpawnTime'] || randomSpawnTime;
+randomSpawnTimeMin = queryParams['randomSpawnTimeMin'] || randomSpawnTimeMin;
+randomSpawnTimeMax = queryParams['randomSpawnTimeMax'] || randomSpawnTimeMax;
+
+console.log(queryParams);
 
 // Login ComfyJS
 if (botuser) {

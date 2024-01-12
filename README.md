@@ -4,7 +4,7 @@ Welcome to my "Who's That Pokémon" Twitch widget project. This project contains
 
 ![Example](Example.png)
 
-### Installation:
+### Local Installation:
 Follow these steps to install this widget for your stream:
 
 1. Download the [Zip file](https://codeload.github.com/SillySoon/who-is-that-pokemon/zip/refs/heads/main) of this project.
@@ -14,7 +14,7 @@ Follow these steps to install this widget for your stream:
 5. Set the Width and Height to 500px.
 6. Enjoy!
 
-### Configuration:
+### Local Configuration:
 You can find the configuration settings in the `script.js` file.
 
 ```js
