@@ -12,6 +12,10 @@ let autoStart = true;
 let autoGiveUp = true;
 let autoGiveUpTime = 300; // Seconds
 
+let randomSpawnTime = true;
+let randomSpawnTimeMin = 30; // Seconds
+let randomSpawnTimeMax = 150; // Seconds
+
 // Pokedex entires: Min 1, Max 898 supported.
 let min = 1;
 let max = 151;
@@ -154,9 +158,8 @@ function guess(message, user) {
 
     holder.id = "win";
 
-    
-
     fetchPokeDex(user);
+
     setTimeout(function () {
       // Reset pokemonNames
       pokemonNames = [];
@@ -229,10 +232,20 @@ function winReset() {
   // Reset Image
   holder.id = "holder";
   holder.src = "holder.png";
+
+
+  // Restart Game automatically
+  let restartTime;
+  if (randomSpawnTime) {
+    restartTime = randomNumber(randomSpawnTimeMin, randomSpawnTimeMax);
+  } else {
+    restartTime = 5;
+  }
+
   if (autoRestart) {
     setTimeout(function () {
       startGame();
-    }, 10000);
+    }, restartTime * 1000);
   }
 }
 
