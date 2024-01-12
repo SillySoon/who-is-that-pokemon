@@ -9,6 +9,8 @@ let ballVid = document.getElementById("ballVid");
 let autoRestart = 1;
 let autoStart = true;
 
+let displayMode = "animated"; // "animated" or "original"
+
 let autoGiveUp = true;
 let autoGiveUpTime = 300; // Seconds
 
@@ -18,7 +20,7 @@ let randomSpawnTimeMax = 150; // Seconds
 
 // Pokedex entires: Min 1, Max 898 supported.
 let min = 1;
-let max = 151;
+let max = 898;
 
 let channel = ""; // Add your channel here
 let botuser = ""; // Add your Bot Username here
@@ -34,6 +36,8 @@ let pokemonData;
 let pokemonNames = [];
 let isSolved = false;
 let winner;
+let fileType;
+let queryParams = getQueryParams();
 
 // Get Query Params
 function getQueryParams() {
@@ -49,27 +53,42 @@ function getQueryParams() {
   return params;
 }
 
-// Use Querz Params
-let queryParams = getQueryParams();
-
-min = queryParams['min'] || min;
-max = queryParams['max'] || max;
-
-channel = queryParams['channel'] || channel;
-botuser = queryParams['botuser'] || botuser;
-token = queryParams['token'] || token;
-
 autoRestart = queryParams['autoRestart'] || autoRestart;
 autoStart = queryParams['autoStart'] || autoStart;
 
 autoGiveUp = queryParams['autoGiveUp'] || autoGiveUp;
 autoGiveUpTime = queryParams['autoGiveUpTime'] || autoGiveUpTime;
 
+displayMode = queryParams['displayMode'] || displayMode;
+
+min = queryParams['min'] || min;
+max = queryParams['max'] || max;
+
+pointReward = queryParams['pointReward'] || pointReward;
+pointAddCommand = queryParams['pointAddCommand'] || pointAddCommand;
+
+channel = queryParams['channel'] || channel;
+botuser = queryParams['botuser'] || botuser;
+token = queryParams['token'] || token;
+
 randomSpawnTime = queryParams['randomSpawnTime'] || randomSpawnTime;
 randomSpawnTimeMin = queryParams['randomSpawnTimeMin'] || randomSpawnTimeMin;
 randomSpawnTimeMax = queryParams['randomSpawnTimeMax'] || randomSpawnTimeMax;
 
 console.log(queryParams);
+
+// Set File Type
+switch (displayMode) {
+  case 'animated':
+    fileType = "gif";
+    break;
+  case 'original':
+    fileType = "png";
+    break;
+  default:
+    console.log("Error: No valid displayMode set!");
+    break;
+}
 
 // Login ComfyJS
 if (botuser) {
@@ -169,7 +188,7 @@ function pokeShow(data, index) {
 }
 
 function showShadow(s) {
-  holder.src = `https://sillysoon.de/pokemon/animated/${pokemon.id}.gif`;
+  holder.src = `https://sillysoon.de/pokemon/${displayMode}/${pokemon.id}.${fileType}`;
 }
 
 function giveUp() {
