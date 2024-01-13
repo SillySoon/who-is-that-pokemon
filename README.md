@@ -2,10 +2,22 @@
 
 Welcome to my "Who's That Pokémon" Twitch widget project. This project contains a simple browser source for the streaming application of your choice, to allow you to play "Who's that Pokémon" with your community on twitch via the text chat, using the points system implemented by Streamelements for the rewards.
 
+<a href="https://github.com/SillySoon/who-is-that-pokemon/blob/main/LICENSE" target="_blank"> ![](https://img.shields.io/npm/l/silly-logger?style=for-the-badge&color=c759e5&labelColor=ca64e7)</a>
+<a href="https://twitch.tv/sillysoon" target="_blank"> ![Static Badge](https://img.shields.io/badge/Twitch-%239046ff?style=for-the-badge)</a>
+<a href="https://sillysoon.de/pokemon/" target="_blank"> ![Static Badge](https://img.shields.io/badge/Website-%233f3f3f?style=for-the-badge)</a>
+
 ![Example](Example.png)
 
-### Local Installation:
-Follow these steps to install this widget for your stream:
+## Browsersource (Easy) (BETA FEATURE)
+
+### Installation
+
+Visit [Who is that Pokemon - Configurator](https://sillysoon.de/pokemon/) and follow the steps on the site. (BETA FEATURE)
+
+## Local (Advanced):
+
+### Installation
+Follow these steps to install this widget locally on your pc for your stream:
 
 1. Download the [Zip file](https://codeload.github.com/SillySoon/who-is-that-pokemon/zip/refs/heads/main) of this project.
 2. Extract the files to a folder of your choice (you will need the path for your streaming software).
@@ -14,13 +26,15 @@ Follow these steps to install this widget for your stream:
 5. Set the Width and Height to 500px.
 6. Enjoy!
 
-### Local Configuration:
+### Configuration:
 You can find the configuration settings in the `script.js` file.
 
 ```js
 // Settings
 let autoRestart = 1;
 let autoStart = true;
+
+let displayMode = "animated"; // "animated" or "original"
 
 let autoGiveUp = true;
 let autoGiveUpTime = 300; // Seconds
@@ -31,9 +45,9 @@ let randomSpawnTimeMax = 150; // Seconds
 
 // Pokedex entires: Min 1, Max 898 supported.
 let min = 1;
-let max = 151;
+let max = 898;
 
-let channel = "helpingspoon"; // Add your channel here
+let channel = ""; // Add your channel here
 let botuser = ""; // Add your Bot Username here
 let token = ""; // Add your Bot Token here, from http://twitchapps.com/tmi/
 
