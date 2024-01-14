@@ -125,7 +125,7 @@ function startGame() {
       pokeShow(data, pokemonIndex);
     });
 
-  // Set timer for 10 minutes
+  // Clear and restart timer
   clearTimeout(timer);
   
   if (autoGiveUp) {
@@ -193,6 +193,7 @@ function showShadow(s) {
 
 function giveUp() {
   guess(pokemon.name);
+  console.log("The Pokemon was " + capitalize(pokemon.name) + "!");
   ComfyJS.Say(`The Pokemon was ${capitalize(pokemon.name)}!`);
 }
 
@@ -214,6 +215,8 @@ function guess(message, user) {
     holder.id = "win";
 
     fetchPokeDex(user);
+
+    clearTimeout(timer);
 
     setTimeout(function () {
       // Reset pokemonNames
@@ -293,6 +296,7 @@ function winReset() {
   let restartTime;
   if (randomSpawnTime) {
     restartTime = randomNumber(randomSpawnTimeMin, randomSpawnTimeMax);
+    console.log("Next Pokemon in " + restartTime + " seconds!");
   } else {
     restartTime = 5;
   }
