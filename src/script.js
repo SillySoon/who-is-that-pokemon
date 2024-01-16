@@ -1,12 +1,5 @@
 "use strict";
 
-// Define all classes
-let holder = document.getElementById("holder");
-let ball = document.getElementById("ball");
-let title = document.getElementById("title");
-let wellDone = document.getElementById("wellDone");
-let ballVid = document.getElementById("ballVid");
-
 // Settings
 let settings = {
   autoStart: true,
@@ -26,14 +19,6 @@ let settings = {
   pointAddCommand: "!addpoints",
 };
 
-// Prequisite for Code
-let pokemon;
-let pokemonData;
-let pokemonNames = [];
-let isSolved = false;
-let winner;
-let fileType;
-
 initializeSettings();
 
 // Get Query Params
@@ -47,7 +32,7 @@ function getQueryParams() {
     params[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
   }
 
-  console.log(params);
+  //console.log(params);
   return params;
 }
 
@@ -109,4 +94,49 @@ function initializeSettings() {
   settings.randomSpawnTimeMax =
     parseInt(queryParams["randomSpawnTimeMax"], 10) ||
     settings.randomSpawnTimeMax;
+}
+
+// Prequisite for Code
+let pokemon;
+let pokemonData;
+let pokemonNames = [];
+let isSolved = false;
+let winner;
+let timer;
+let fileType;
+
+// Define all classes
+let holder = document.getElementById("holder");
+let ball = document.getElementById("ball");
+let title = document.getElementById("title");
+let wellDone = document.getElementById("wellDone");
+let ballVid = document.getElementById("ballVid");
+
+loginUser();
+changeFileType();
+
+function loginUser() {
+  if (settings.botuser) {
+    // Login with Bot
+    ComfyJS.Init(settings.botuser, settings.token, settings.channel);
+    console.log("Login as Bot");
+  } else if (settings.token) {
+    // Login with User
+    ComfyJS.Init(settings.channel, settings.token);
+    console.log("Login as User");
+  } else {
+    // Login as Anonymous
+    ComfyJS.Init(settings.channel);
+    console.log("Login as Anonymous");
+  }
+}
+
+function changeFileType() {
+  let animated = ["animated"];
+  fileType = animated.includes(settings.displayMode) ? ".gif" : ".png";
+}
+
+function randomNumber(min, max) {
+  const num = Math.random() * (max - min) + min;
+  return Math.floor(num);
 }
