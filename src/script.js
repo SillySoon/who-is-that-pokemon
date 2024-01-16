@@ -218,6 +218,7 @@ function startGame() {
       return response.json();
     })
     .then((data) => {
+
       pokeShow(data, pokemonIndex);
     });
 
@@ -262,13 +263,14 @@ function guess(message, user) {
 }
 
 function buildPokeDex(pokemonData, user) {
+  let flavor;
   pokemonData.flavor_text_entries.forEach((element) => {
     if (element.language.name === "en") {
       flavor = element.flavor_text;
     }
   });
 
-  pokedexMessage = `#${pokemon.id} ${capitalize(
+  let pokedexMessage = `#${pokemon.id} ${capitalize(
     pokemon.name
   )} - ${flavor} Height: ${pokemon.height / 10} M Weight: ${
     pokemon.weight / 10
@@ -279,7 +281,7 @@ function buildPokeDex(pokemonData, user) {
 
   winner = user;
 
-  if (token) {
+  if (settings.token) {
     ComfyJS.Say(pokedexMessage);
     if (settings.pointReward) {
       ComfyJS.Say(
@@ -290,6 +292,7 @@ function buildPokeDex(pokemonData, user) {
 }
 
 function fetchPokeDex(user) {
+  console.log("Fetching Pokedex Data");
   if (user) {
     buildPokeDex(pokemonData, user);
   } else {
@@ -307,7 +310,7 @@ function buildData(tempPokemonData) {
   }
 
   pokemonNames.push(pokemon.name);
-  // console.log(pokemonNames); // Debug Output for all possible names
+  console.log(pokemonNames); // Debug Output for all possible names
 }
 
 // Reset variants
