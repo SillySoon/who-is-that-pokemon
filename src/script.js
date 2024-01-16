@@ -15,7 +15,7 @@ let settings = {
   channel: "", // Add your channel here
   botuser: "", // Add your Bot Username here
   token: "", // Add your Bot Token here, from http://twitchapps.com/tmi/
-  pointReward: true,
+  pointReward: false,
   pointRewardCommand: "!addpoints",
   pointRewardAmount: 100,
   showPokeDex: true,
