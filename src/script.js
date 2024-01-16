@@ -272,8 +272,8 @@ function buildPokeDex(pokemonData, user) {
 
   if (token) {
     ComfyJS.Say(pokedexMessage);
-    if (pointReward !== 0) {
-      ComfyJS.Say(`${pointAddCommand} ${user} ${pointReward}`);
+    if (settings.pointReward !== 0) {
+      ComfyJS.Say(`${settings.pointAddCommand} ${user} ${settings.pointReward}`);
     }
   }
 }
@@ -310,13 +310,16 @@ function winReset() {
   // Restart Game automatically
   let restartTime;
   if (settings.randomSpawnTime) {
-    restartTime = randomNumber(settings.randomSpawnTimeMin, settings.randomSpawnTimeMax);
+    restartTime = randomNumber(
+      settings.randomSpawnTimeMin,
+      settings.randomSpawnTimeMax
+    );
     // console.log("Next Pokemon in " + restartTime + " seconds!");
   } else {
     restartTime = 5;
   }
 
-  if (autoRestart) {
+  if (settings.autoRestart) {
     setTimeout(function () {
       startGame();
     }, restartTime * 1000);
@@ -357,12 +360,12 @@ function stopGame() {
 }
 
 function stopAuto() {
-  autoRestart = false;
+  settings.autoRestart = false;
   winReset();
 }
 
 function startAuto() {
-  autoRestart = true;
+  settings.autoRestart = true;
   startGame();
 }
 
