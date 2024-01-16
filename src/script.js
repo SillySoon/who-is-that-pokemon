@@ -262,7 +262,7 @@ function guess(message, user) {
       fetchPokeDex(user);
     }
 
-    if (settings.pointReward && settings.token) {
+    if (user && settings.pointReward && settings.token) {
       ComfyJS.Say(
         `${settings.pointRewardCommand} ${user} ${settings.pointRewardAmount}`
       );
@@ -303,7 +303,7 @@ function buildPokeDex(pokemonData, user) {
 }
 
 function fetchPokeDex(user) {
-  console.log("Fetching Pokedex Data");
+  // console.log("Fetching Pokedex Data");
   if (user) {
     buildPokeDex(pokemonData, user);
   } else {
