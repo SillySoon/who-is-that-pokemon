@@ -4,7 +4,7 @@
 let settings = {
   autoStart: true,
   autoRestart: true,
-  displayMode: "animated", // "animated" or "original"
+  displayMode: "original", // "animated" or "original"
   autoGiveUp: true,
   autoGiveUpTime: 300, // Seconds
   randomSpawnTime: true,
@@ -18,6 +18,7 @@ let settings = {
   pointReward: true,
   pointRewardCommand: "!addpoints",
   pointRewardAmount: 100,
+  showPokeDex: true,
 };
 
 initializeSettings();
@@ -103,6 +104,14 @@ function initializeSettings() {
   settings.randomSpawnTimeMax =
     parseInt(queryParams["randomSpawnTimeMax"], 10) ||
     settings.randomSpawnTimeMax;
+
+  // Show Pokedex
+  settings.showPokeDex =
+    queryParams["showPokeDex"] === "true"
+      ? true
+      : queryParams["showPokeDex"] === "false"
+      ? false
+      : settings.showPokeDex;
 }
 
 // Prequisite for Code
@@ -218,7 +227,6 @@ function startGame() {
       return response.json();
     })
     .then((data) => {
-
       pokeShow(data, pokemonIndex);
     });
 
@@ -250,7 +258,15 @@ function guess(message, user) {
 
     holder.id = "win";
 
-    fetchPokeDex(user);
+    if (settings.showPokeDex) {
+      fetchPokeDex(user);
+    }
+
+    if (settings.pointReward && settings.token) {
+      ComfyJS.Say(
+        `${settings.pointRewardCommand} ${user} ${settings.pointRewardAmount}`
+      );
+    }
 
     clearTimeout(timer);
 
@@ -283,11 +299,6 @@ function buildPokeDex(pokemonData, user) {
 
   if (settings.token) {
     ComfyJS.Say(pokedexMessage);
-    if (settings.pointReward) {
-      ComfyJS.Say(
-        `${settings.pointRewardCommand} ${user} ${settings.pointRewardAmount}`
-      );
-    }
   }
 }
 
