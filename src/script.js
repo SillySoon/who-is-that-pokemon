@@ -15,11 +15,13 @@ let settings = {
   channel: "", // Add your channel here
   botuser: "", // Add your Bot Username here
   token: "", // Add your Bot Token here, from http://twitchapps.com/tmi/
-  pointReward: 200,
-  pointAddCommand: "!addpoints",
+  pointReward: true,
+  pointRewardCommand: "!addpoints",
+  pointRewardAmount: 100,
 };
 
 initializeSettings();
+console.log(settings);
 
 // Get Query Params
 function getQueryParams() {
@@ -70,11 +72,18 @@ function initializeSettings() {
   settings.min = parseInt(queryParams["min"], 10) || settings.min;
   settings.max = parseInt(queryParams["max"], 10) || settings.max;
 
-  // Points for Streamelements (!addpoints [user] [amount]) - Set to 0 to disable
+  // Points for Streamelements (!addpoints [user] [amount])
   settings.pointReward =
-    parseInt(queryParams["pointReward"], 10) || settings.pointReward;
-  settings.pointAddCommand =
-    queryParams["pointAddCommand"] || settings.pointAddCommand;
+    queryParams["pointReward"] === "true"
+      ? true
+      : queryParams["pointReward"] === "false"
+      ? false
+      : settings.pointReward;
+  settings.pointRewardCommand =
+    queryParams["pointRewardCommand"] || settings.pointRewardCommand;
+  settings.pointRewardAmount =
+    parseInt(queryParams["pointRewardAmount"], 10) ||
+    settings.pointRewardAmount;
 
   // Twitch Settings
   settings.channel = queryParams["channel"] || settings.channel;
@@ -272,8 +281,10 @@ function buildPokeDex(pokemonData, user) {
 
   if (token) {
     ComfyJS.Say(pokedexMessage);
-    if (settings.pointReward !== 0) {
-      ComfyJS.Say(`${settings.pointAddCommand} ${user} ${settings.pointReward}`);
+    if (settings.pointReward) {
+      ComfyJS.Say(
+        `${settings.pointRewardCommand} ${user} ${settings.pointRewardAmount}`
+      );
     }
   }
 }
