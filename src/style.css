@@ -18,8 +18,9 @@ body {
 
 #holder {
   filter: brightness(0) invert(1);
-  max-width: 400px;
-  max-height: 400px;
+  image-rendering: pixelated;
+  width: 100%;
+  height: 100%;
 }
 
 #win {
@@ -29,8 +30,6 @@ body {
 
 #holder img {
   filter: drop-shadow(-5px 5px 3px lightgrey);
-  max-width: 400px;
-  max-height: 400px;
 }
 
 #win img {
