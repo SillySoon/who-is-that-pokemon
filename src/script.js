@@ -237,7 +237,7 @@ function startGame() {
 
 // Game Functions
 function changeFileType() {
-  let animated = ["animated"];
+  let animated = ["animated", "showdown"];
   fileType = animated.includes(settings.displayMode) ? "gif" : "png";
 }
 
